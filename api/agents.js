@@ -10,6 +10,9 @@ const COLORS = {
   "AGT-3": "#F97316",
   "AGT-4": "#10B981",
   "AGT-5": "#1E3A5F",
+  "AGT-6": "#0D2B45",
+  "AGT-7": "#8B5CF6",
+  "AGT-8": "#0EA5E9",
 };
 const DEFAULT_COLOR = "#6B7280";
 

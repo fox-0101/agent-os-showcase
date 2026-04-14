@@ -44,146 +44,15 @@
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // ─── Agent Avatars (SVG Cartoon Illustrations) ────────────────────
+    // ─── Agent Avatars (Image-based) ────────────────────────────────
 
     function AgentAvatar({ slug, color, size = 48 }) {
-      const avatars = {
-        dean: (
-          <svg viewBox="0 0 120 120" width={size} height={size} fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Face */}
-            <circle cx="60" cy="65" r="38" fill="#FDDCB5"/>
-            {/* Hair */}
-            <path d="M28 52c0-20 14-32 32-32s32 12 32 32c0 4-1 7-2 9 2-6 3-13 3-18C93 25 78 12 60 12S27 25 27 43c0 5 1 12 3 18-1-2-2-5-2-9z" fill="#4A3728"/>
-            {/* Graduation cap */}
-            <path d="M60 8L20 24l40 16 40-16L60 8z" fill={color}/>
-            <rect x="56" y="24" width="8" height="16" rx="2" fill={color}/>
-            <rect x="48" y="6" width="24" height="6" rx="3" fill={color} opacity="0.8"/>
-            <path d="M88 24v14" stroke={color} strokeWidth="2.5" strokeLinecap="round"/>
-            <rect x="84" y="36" width="8" height="6" rx="2" fill={color} opacity="0.7"/>
-            {/* Eyes */}
-            <ellipse cx="46" cy="62" rx="5" ry="5.5" fill="#2D2D2D"/>
-            <ellipse cx="74" cy="62" rx="5" ry="5.5" fill="#2D2D2D"/>
-            <circle cx="48" cy="60" r="2" fill="white" opacity="0.8"/>
-            <circle cx="76" cy="60" r="2" fill="white" opacity="0.8"/>
-            {/* Eyebrows */}
-            <path d="M38 54c2-4 6-5 10-3" stroke="#4A3728" strokeWidth="2.5" strokeLinecap="round"/>
-            <path d="M72 51c4-2 8-1 10 3" stroke="#4A3728" strokeWidth="2.5" strokeLinecap="round"/>
-            {/* Smile */}
-            <path d="M45 78c6 8 24 8 30 0" stroke="#2D2D2D" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            {/* Glasses */}
-            <rect x="36" y="55" width="20" height="16" rx="8" stroke={color} strokeWidth="2" fill="none" opacity="0.5"/>
-            <rect x="64" y="55" width="20" height="16" rx="8" stroke={color} strokeWidth="2" fill="none" opacity="0.5"/>
-            <line x1="56" y1="63" x2="64" y2="63" stroke={color} strokeWidth="2" opacity="0.5"/>
-          </svg>
-        ),
-        lora: (
-          <svg viewBox="0 0 120 120" width={size} height={size} fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Hair back */}
-            <path d="M24 55c0-22 16-40 36-40s36 18 36 55c0 4-20 8-20 0 0-8 4-30 0-38-3-6-10-10-16-10s-13 4-16 10c-4 8 0 30 0 38 0 8-20 4-20 0V55z" fill="#1A1A2E"/>
-            {/* Face */}
-            <circle cx="60" cy="65" r="36" fill="#F5D0B0"/>
-            {/* Hair front */}
-            <path d="M32 48c2-16 14-28 28-28s26 12 28 28c0 2-4 4-8 1-3-6-10-12-20-12s-17 6-20 12c-4 3-8 1-8-1z" fill="#1A1A2E"/>
-            {/* Eyes - sharp/focused */}
-            <ellipse cx="46" cy="64" rx="4.5" ry="5" fill="#2D2D2D"/>
-            <ellipse cx="74" cy="64" rx="4.5" ry="5" fill="#2D2D2D"/>
-            <circle cx="48" cy="62" r="1.8" fill="white" opacity="0.8"/>
-            <circle cx="76" cy="62" r="1.8" fill="white" opacity="0.8"/>
-            {/* Sharp eyebrows */}
-            <path d="M36 56l14-4" stroke="#1A1A2E" strokeWidth="2.8" strokeLinecap="round"/>
-            <path d="M84 56l-14-4" stroke="#1A1A2E" strokeWidth="2.8" strokeLinecap="round"/>
-            {/* Confident smirk */}
-            <path d="M48 79c4 4 10 5 16 2" stroke="#2D2D2D" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            {/* Target earring */}
-            <circle cx="26" cy="72" r="5" fill={color} opacity="0.8"/>
-            <circle cx="26" cy="72" r="2.5" fill="white" opacity="0.6"/>
-            <circle cx="26" cy="72" r="1" fill={color}/>
-          </svg>
-        ),
-        vince: (
-          <svg viewBox="0 0 120 120" width={size} height={size} fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Face */}
-            <circle cx="60" cy="65" r="38" fill="#E8C59E"/>
-            {/* Beard/stubble */}
-            <path d="M32 72c0 0 4 28 28 28s28-28 28-28" fill="#8B6F47" opacity="0.15"/>
-            {/* Hair - confident slicked */}
-            <path d="M26 50c2-20 16-34 34-34s32 14 34 34c0 2-2 3-4 1C86 40 74 30 60 30S34 40 30 51c-2 2-4 1-4-1z" fill="#3D2B1F"/>
-            <path d="M90 46c4-2 8 2 6 8-2 4-6 6-8 4" fill="#3D2B1F"/>
-            {/* Eyes - energetic */}
-            <ellipse cx="46" cy="62" rx="5" ry="5.5" fill="#2D2D2D"/>
-            <ellipse cx="74" cy="62" rx="5" ry="5.5" fill="#2D2D2D"/>
-            <circle cx="48" cy="60" r="2.2" fill="white" opacity="0.9"/>
-            <circle cx="76" cy="60" r="2.2" fill="white" opacity="0.9"/>
-            {/* Confident thick eyebrows */}
-            <path d="M36 53c4-4 10-4 14-1" stroke="#3D2B1F" strokeWidth="3" strokeLinecap="round"/>
-            <path d="M70 52c4-3 10-3 14 1" stroke="#3D2B1F" strokeWidth="3" strokeLinecap="round"/>
-            {/* Big confident grin */}
-            <path d="M42 77c8 10 28 10 36 0" stroke="#2D2D2D" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            <path d="M46 77c6 6 22 6 28 0" fill="white" opacity="0.9"/>
-            {/* Fire accent */}
-            <path d="M88 30c2-6 8-10 8-4s-2 8-4 10c2-4 6-6 6-2s-4 8-6 8c-2 0-6-6-4-12z" fill={color} opacity="0.7"/>
-          </svg>
-        ),
-        spacey: (
-          <svg viewBox="0 0 120 120" width={size} height={size} fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Face */}
-            <circle cx="60" cy="65" r="37" fill="#F0D5B8"/>
-            {/* Hair - modern/tech */}
-            <path d="M28 52c0-20 14-34 32-34s32 14 32 34c0 3-2 5-5 3-4-8-12-18-27-18S37 47 33 55c-3 2-5 0-5-3z" fill="#2C3E50"/>
-            <path d="M70 20c8 0 18 4 22 14-2-4-8-6-14-6" fill="#2C3E50"/>
-            {/* Eyes - visionary/bright */}
-            <ellipse cx="46" cy="64" rx="5" ry="5.5" fill="#2D2D2D"/>
-            <ellipse cx="74" cy="64" rx="5" ry="5.5" fill="#2D2D2D"/>
-            <circle cx="47.5" cy="62.5" r="2" fill="white" opacity="0.9"/>
-            <circle cx="75.5" cy="62.5" r="2" fill="white" opacity="0.9"/>
-            {/* Star sparkle in eye */}
-            <path d="M44 60l1-2 1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill={color} opacity="0.6"/>
-            {/* Friendly eyebrows */}
-            <path d="M37 56c3-3 8-4 12-2" stroke="#2C3E50" strokeWidth="2.5" strokeLinecap="round"/>
-            <path d="M71 54c4-2 9-1 12 2" stroke="#2C3E50" strokeWidth="2.5" strokeLinecap="round"/>
-            {/* Warm open smile */}
-            <path d="M44 76c6 8 26 8 32 0" stroke="#2D2D2D" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            {/* Rocket pin */}
-            <g transform="translate(86,44) scale(0.7)">
-              <path d="M10 0C10 0 20 8 20 20c0 4-2 6-4 8H14l-4-8-4 8H-2c-2-2-4-4-4-8C-6 8 4 0 10 0z" fill={color} opacity="0.8"/>
-              <circle cx="10" cy="14" r="3" fill="white" opacity="0.6"/>
-            </g>
-          </svg>
-        ),
-        iron: (
-          <svg viewBox="0 0 120 120" width={size} height={size} fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Face */}
-            <circle cx="60" cy="65" r="38" fill="#D4A574"/>
-            {/* Hair - military short/disciplined */}
-            <path d="M26 52c0-22 16-36 34-36s34 14 34 36c0 2-1 3-3 2-3-12-14-22-31-22S32 42 29 54c-2 1-3 0-3-2z" fill="#1C1C1C"/>
-            {/* Eyes - serious/focused */}
-            <ellipse cx="46" cy="64" rx="4.5" ry="5" fill="#2D2D2D"/>
-            <ellipse cx="74" cy="64" rx="4.5" ry="5" fill="#2D2D2D"/>
-            <circle cx="47.5" cy="62" r="1.8" fill="white" opacity="0.7"/>
-            <circle cx="75.5" cy="62" r="1.8" fill="white" opacity="0.7"/>
-            {/* Strong straight eyebrows */}
-            <path d="M36 55h16" stroke="#1C1C1C" strokeWidth="3" strokeLinecap="round"/>
-            <path d="M68 55h16" stroke="#1C1C1C" strokeWidth="3" strokeLinecap="round"/>
-            {/* Determined slight smile */}
-            <path d="M46 79c6 4 22 4 28 0" stroke="#2D2D2D" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            {/* Jaw line - strong */}
-            <path d="M30 70c2 16 14 28 30 28s28-12 30-28" stroke="#C49A6C" strokeWidth="1.5" fill="none" opacity="0.4"/>
-            {/* Gear icon on collar */}
-            <g transform="translate(60,108) scale(0.5)">
-              <circle cx="0" cy="0" r="10" fill={color} opacity="0.7"/>
-              <circle cx="0" cy="0" r="5" stroke="white" strokeWidth="2" fill="none" opacity="0.6"/>
-              <circle cx="0" cy="0" r="2" fill="white" opacity="0.6"/>
-            </g>
-          </svg>
-        )
-      };
+      const hasImage = ["dean", "lora", "vince", "iron", "spacey", "set", "doc"].includes(slug);
 
-      const avatar = avatars[slug];
-      if (!avatar) {
-        // Fallback: colored circle with initial
+      if (!hasImage) {
         return (
           <div
-            className="rounded-full flex items-center justify-center font-bold text-white"
+            className="rounded-2xl flex items-center justify-center font-bold text-white"
             style={{ width: size, height: size, backgroundColor: color, fontSize: size * 0.4 }}
           >
             {slug ? slug[0].toUpperCase() : "?"}
@@ -191,7 +60,18 @@
         );
       }
 
-      return <div className="rounded-full overflow-hidden" style={{ width: size, height: size }}>{avatar}</div>;
+      return (
+        <div className="rounded-2xl overflow-hidden" style={{ width: size, height: size }}>
+          <img
+            src={`/${slug}.png`}
+            alt={slug}
+            width={size}
+            height={size}
+            style={{ width: size, height: size, objectFit: "cover", display: "block" }}
+            loading="lazy"
+          />
+        </div>
+      );
     }
 
     // ─── Components ───────────────────────────────────────────────────
