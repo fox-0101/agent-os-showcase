@@ -68,22 +68,27 @@ export default async function handler(req, res) {
         const tags = props["Tags"]?.multi_select?.map((t) => t.name) || [];
         const platform = props["Platform"]?.multi_select?.map((p) => p.name) || [];
 
-        // Fetch page blocks for content
+        // Fetch ALL page blocks (paginated) for content
         let content = {};
         try {
-          const blocksRes = await fetch(
-            `https://api.notion.com/v1/blocks/${page.id}/children?page_size=100`,
-            {
+          const allBlocks = [];
+          let cursor = null;
+          let hasMore = true;
+          while (hasMore) {
+            const url = `https://api.notion.com/v1/blocks/${page.id}/children?page_size=100${cursor ? `&start_cursor=${cursor}` : ""}`;
+            const blocksRes = await fetch(url, {
               headers: {
                 Authorization: `Bearer ${NOTION_API_KEY}`,
                 "Notion-Version": "2022-06-28",
               },
-            }
-          );
-          if (blocksRes.ok) {
+            });
+            if (!blocksRes.ok) break;
             const blocksData = await blocksRes.json();
-            content = parseBlocks(blocksData.results, name);
+            allBlocks.push(...(blocksData.results || []));
+            hasMore = blocksData.has_more === true && blocksData.next_cursor;
+            cursor = blocksData.next_cursor;
           }
+          content = parseBlocks(allBlocks, name);
         } catch (e) {
           console.error(`Failed to fetch blocks for ${name}:`, e);
         }
