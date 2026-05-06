@@ -1,0 +1,363 @@
+/* ============================================================================
+   Djungle Holding — Colors & Type tokens
+   ============================================================================
+   Master brand: industrial, austere, fund-grade. The brand cinema uses
+   electric violet over deep ink black — not corporate blue, not playful
+   pastel. Typography is condensed/geometric for display, neutral for body,
+   monospaced for data and operator UI.
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+:root {
+  /* ----------------------------------------------------------------
+     COLORS — INK (master brand neutrals)
+     ---------------------------------------------------------------- */
+  --ink-1000: #07060B;   /* deep void — primary brand bg, fund-grade */
+  --ink-900:  #0F0E18;   /* surface 1 — slightly raised cards on dark */
+  --ink-800:  #1A1928;   /* surface 2 — panels, dropdowns */
+  --ink-700:  #2A2940;   /* hairline / heavy border on dark */
+  --ink-600:  #3D3B5C;   /* disabled, low-emphasis */
+  --ink-500:  #5C5A78;   /* placeholder, tertiary text on dark */
+  --ink-400:  #8B89A6;   /* secondary text on dark */
+  --ink-300:  #B5B3CC;   /* primary text on dark, low contrast */
+  --ink-200:  #DDDCEA;   /* primary text on dark, high contrast */
+  --ink-100:  #F1F0F7;   /* on-dark display */
+  --ink-0:    #FFFFFF;
+
+  /* ----------------------------------------------------------------
+     COLORS — VIOLET (the Djungle signal — used sparingly, with intent)
+     The cinema (astronauts, spaceships, dunes) lives in this hue range.
+     Saturated, not pastel. Always electric.
+     ---------------------------------------------------------------- */
+  --violet-50:  #F2EDFF;
+  --violet-100: #E1D5FF;
+  --violet-200: #C2A8FF;
+  --violet-300: #A37BFF;
+  --violet-400: #8551FF;
+  --violet-500: #6A2BFF;  /* PRIMARY — Djungle Violet */
+  --violet-600: #5414E6;
+  --violet-700: #4109BD;
+  --violet-800: #2E0590;
+  --violet-900: #1B0263;
+
+  /* Magenta accent — the highlight on visor reflections, sunset rim */
+  --magenta-300: #F37AFF;
+  --magenta-500: #D938FF;
+  --magenta-700: #9B0EBD;
+
+  /* ----------------------------------------------------------------
+     COLORS — PAPER (light mode neutrals; for Bridge fund-grade docs,
+     editorial pages, board packs)
+     ---------------------------------------------------------------- */
+  --paper-0:   #FFFFFF;
+  --paper-50:  #FAFAF7;   /* warm off-white — subtle, not stark */
+  --paper-100: #F4F3EE;
+  --paper-200: #E8E6DD;   /* hairline divider on light */
+  --paper-300: #D2CFC2;
+  --paper-400: #9C998D;
+  --paper-500: #6B6960;
+  --paper-700: #2E2D28;
+  --paper-900: #14130F;
+
+  /* ----------------------------------------------------------------
+     COLORS — DATA (charts, J-curve, P&L tables)
+     Borrowed straight from the J-curve illustration in the company
+     profile: muted sage = positive cash flow; muted rose = negative.
+     ---------------------------------------------------------------- */
+  --data-positive: #B8D9CC;   /* sage — positive cashflow / break-even */
+  --data-positive-ink: #4D7B68;
+  --data-negative: #E8B5B5;   /* rose — negative cashflow / burn */
+  --data-negative-ink: #A65656;
+  --data-neutral:  #C9C7E0;
+  --data-amber:    #E8A24D;
+  --data-violet:   var(--violet-500);
+
+  /* ----------------------------------------------------------------
+     COLORS — SUB-BRAND ACCENTS
+     The master brand is violet/ink. Sub-brands keep ink as the base
+     and shift only the accent token, so the system stays coherent.
+     ---------------------------------------------------------------- */
+  --polaris-accent:   #E0E5EC;   /* cold steel — austerity, operative */
+  --polaris-glow:     #7DA8D8;
+  --space-accent:     #FF8A3D;   /* warm orange — open innovation, energy */
+  --space-glow:       #FFC56B;
+  --bridge-accent:    #C9A95B;   /* aged brass — gravitas, institutional */
+  --bridge-deep:      #1F2A3A;   /* navy ink for Bridge fund docs */
+
+  /* ----------------------------------------------------------------
+     SEMANTIC TOKENS (DARK MODE — DEFAULT MASTER BRAND)
+     ---------------------------------------------------------------- */
+  --bg:             var(--ink-1000);
+  --bg-raised:      var(--ink-900);
+  --bg-overlay:     var(--ink-800);
+  --fg:             var(--ink-100);
+  --fg-muted:       var(--ink-300);
+  --fg-subtle:      var(--ink-400);
+  --fg-faint:       var(--ink-500);
+  --border:         var(--ink-700);
+  --border-strong:  var(--ink-600);
+  --hairline:       rgba(255,255,255,0.08);
+
+  --accent:         var(--violet-500);
+  --accent-hover:   var(--violet-400);
+  --accent-press:   var(--violet-600);
+  --accent-fg:      var(--ink-0);
+  --accent-soft:    rgba(106, 43, 255, 0.14);
+
+  --focus-ring:     var(--violet-300);
+
+  /* ----------------------------------------------------------------
+     TYPE — FAMILIES
+     Display: Space Grotesk (geometric, condensed feel — closest GF
+     match to the wordmark on the cover; flag substitution).
+     Body:    Inter (neutral, dense, professional).
+     Mono:    JetBrains Mono (data, P&L tables, operator UI).
+     ---------------------------------------------------------------- */
+  --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-serif:   "Tiempos Headline", "Source Serif Pro", Georgia, serif;  /* reserved for Bridge fund-grade docs */
+
+  /* ----------------------------------------------------------------
+     TYPE — SCALE
+     Industrial density. Big jumps for editorial display, tight for body.
+     ---------------------------------------------------------------- */
+  --fs-display-2xl: clamp(56px, 7.5vw, 120px);
+  --fs-display-xl:  clamp(44px, 5.6vw, 88px);
+  --fs-display-lg:  clamp(36px, 4.2vw, 64px);
+  --fs-display-md:  clamp(28px, 3vw, 44px);
+  --fs-h1:          32px;
+  --fs-h2:          24px;
+  --fs-h3:          18px;
+  --fs-h4:          15px;
+  --fs-body-lg:     17px;
+  --fs-body:        15px;
+  --fs-body-sm:     13px;
+  --fs-caption:     12px;
+  --fs-eyebrow:     11px;   /* uppercased, tracked */
+  --fs-mono:        13px;
+
+  --lh-display:     0.96;
+  --lh-heading:     1.12;
+  --lh-body:        1.5;
+  --lh-tight:       1.25;
+
+  --tracking-display:  -0.02em;
+  --tracking-heading:  -0.01em;
+  --tracking-body:      0em;
+  --tracking-eyebrow:   0.16em;
+  --tracking-mono:      0em;
+
+  /* ----------------------------------------------------------------
+     SPACING — 4px base, 8px rhythm
+     ---------------------------------------------------------------- */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+  --sp-32: 128px;
+
+  /* ----------------------------------------------------------------
+     RADII — small, deliberate. The brand is industrial, not soft.
+     Most surfaces are zero-radius or 2px. 8px is reserved for
+     interactive elements (buttons, inputs).
+     ---------------------------------------------------------------- */
+  --radius-0: 0px;
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-3: 8px;
+  --radius-pill: 999px;
+
+  /* ----------------------------------------------------------------
+     ELEVATION — sparingly. The brand prefers hairlines to shadow.
+     ---------------------------------------------------------------- */
+  --shadow-1: 0 1px 0 rgba(255,255,255,0.04) inset, 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-2: 0 8px 24px -8px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-3: 0 24px 60px -16px rgba(0,0,0,0.6), 0 8px 16px -4px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 0 1px rgba(106,43,255,0.4), 0 0 32px -4px rgba(106,43,255,0.5);
+
+  /* ----------------------------------------------------------------
+     MOTION
+     ---------------------------------------------------------------- */
+  --ease-out:    cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:    140ms;
+  --dur-base:    220ms;
+  --dur-slow:    420ms;
+}
+
+/* ============================================================================
+   LIGHT (PAPER) MODE — used by Bridge fund collateral, board packs, the
+   editorial layer of the website.
+   ============================================================================ */
+[data-theme="paper"] {
+  --bg:             var(--paper-50);
+  --bg-raised:      var(--paper-0);
+  --bg-overlay:     var(--paper-100);
+  --fg:             var(--paper-900);
+  --fg-muted:       var(--paper-700);
+  --fg-subtle:      var(--paper-500);
+  --fg-faint:       var(--paper-400);
+  --border:         var(--paper-200);
+  --border-strong:  var(--paper-300);
+  --hairline:       rgba(20,19,15,0.08);
+  --accent:         var(--violet-600);
+  --accent-hover:   var(--violet-700);
+  --accent-press:   var(--violet-800);
+  --accent-fg:      var(--paper-0);
+  --accent-soft:    rgba(65, 9, 189, 0.08);
+  --focus-ring:     var(--violet-500);
+}
+
+/* ============================================================================
+   SEMANTIC ELEMENT STYLES
+   Use these classes (or :where for resets) inside design system contexts.
+   ============================================================================ */
+
+.dj-display-2xl,
+.dj-h0 {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-2xl);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+  font-weight: 500;
+  text-wrap: balance;
+}
+.dj-display-xl {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-display);
+  font-weight: 500;
+  text-wrap: balance;
+}
+.dj-display-lg {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-lg);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-display);
+  font-weight: 500;
+}
+.dj-h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-heading);
+  font-weight: 600;
+}
+.dj-h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-heading);
+  font-weight: 600;
+}
+.dj-h3 {
+  font-family: var(--font-body);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-heading);
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.dj-h4 {
+  font-family: var(--font-body);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-tight);
+  font-weight: 600;
+}
+.dj-body-lg {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body);
+  font-weight: 400;
+}
+.dj-body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+}
+.dj-body-sm {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body);
+  font-weight: 400;
+}
+.dj-caption {
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  line-height: 1.4;
+  color: var(--fg-subtle);
+}
+.dj-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.dj-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--tracking-mono);
+  font-feature-settings: "tnum", "ss01";
+}
+
+/* ============================================================================
+   SHARED SURFACES
+   ============================================================================ */
+.dj-surface {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.dj-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-1);
+  padding: var(--sp-6);
+}
+
+.dj-divider {
+  height: 1px;
+  background: var(--border);
+  border: 0;
+}
+
+.dj-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 4px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+
+/* Industrial dot-grid — used as background texture (master brand) */
+.dj-grid-bg {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0);
+  background-size: 24px 24px;
+  background-position: 0 0;
+}
+[data-theme="paper"] .dj-grid-bg {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(20,19,15,0.10) 1px, transparent 0);
+}

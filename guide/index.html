@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agent OS — Guida al prodotto</title>
+<meta name="description" content="Manuale di Agent OS: il sistema operativo per gestire un team di agenti AI specializzati. Costruito da Djungle." />
+<link rel="icon" type="image/png" href="assets/logo.png" />
+<link rel="stylesheet" href="assets/tokens.css" />
+<style>
+  /* ============================================================================
+     Agent OS — Guida al prodotto
+     Design system: Djungle Holding (ink + violet, Space Grotesk + Inter + JetBrains Mono)
+     ============================================================================ */
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  a { color: var(--accent); text-decoration: none; transition: color var(--dur-fast) var(--ease-out); }
+  a:hover { color: var(--violet-300); text-decoration: underline; text-underline-offset: 4px; }
+  ::selection { background: var(--violet-500); color: var(--ink-0); }
+
+  /* -------- Layout shell -------- */
+  .shell {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+  }
+  @media (max-width: 960px) {
+    .shell { grid-template-columns: 1fr; }
+  }
+
+  /* -------- Sidebar -------- */
+  aside.nav {
+    position: sticky; top: 0;
+    height: 100vh;
+    border-right: 1px solid var(--border);
+    background: var(--ink-1000);
+    padding: var(--sp-6) var(--sp-5);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+  @media (max-width: 960px) {
+    aside.nav { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+  }
+  .brand {
+    display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-3);
+    padding-bottom: var(--sp-5);
+    border-bottom: 1px solid var(--hairline);
+    margin-bottom: var(--sp-5);
+  }
+  .brand img {
+    display: block;
+    width: 180px;
+    height: auto;
+    max-width: 100%;
+    /* nudge: the wordmark has built-in horizontal padding, pull left to align with nav items */
+    margin-left: -4px;
+  }
+  .brand .sub {
+    font-family: var(--font-body);
+    font-size: 10px;
+    color: var(--fg-faint);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  nav .group { margin-bottom: var(--sp-5); }
+  nav .group-title {
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin: 0 0 var(--sp-2) 0;
+    padding: 0 var(--sp-2);
+  }
+  nav ul { list-style: none; padding: 0; margin: 0; }
+  nav ul li a {
+    display: block;
+    padding: 6px var(--sp-2);
+    color: var(--fg-muted);
+    font-size: 13px;
+    border-radius: var(--radius-1);
+    transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+  }
+  nav ul li a:hover { color: var(--ink-100); background: var(--ink-900); text-decoration: none; }
+  nav ul li a.active { color: var(--violet-300); background: var(--accent-soft); }
+
+  .nav-footer {
+    margin-top: auto;
+    padding-top: var(--sp-5);
+    border-top: 1px solid var(--hairline);
+    font-size: 11px;
+    color: var(--fg-faint);
+    line-height: 1.5;
+  }
+  .nav-footer code { font-family: var(--font-mono); font-size: 11px; color: var(--violet-300); background: var(--ink-800); padding: 1px 6px; border-radius: 2px; }
+
+  /* -------- Main content -------- */
+  main {
+    padding: var(--sp-12) var(--sp-12);
+    max-width: 1080px;
+  }
+  @media (max-width: 960px) {
+    main { padding: var(--sp-8) var(--sp-6); }
+  }
+
+  section { padding: var(--sp-16) 0; border-top: 1px solid var(--hairline); }
+  section:first-of-type { border-top: 0; padding-top: 0; }
+  section > .eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--violet-300);
+    margin-bottom: var(--sp-4);
+    display: block;
+  }
+
+  h1, h2, h3, h4 { margin: 0; }
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-lg);
+    line-height: var(--lh-display);
+    letter-spacing: var(--tracking-display);
+    font-weight: 500;
+    text-wrap: balance;
+    margin-bottom: var(--sp-6);
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--tracking-heading);
+    font-weight: 600;
+    margin-bottom: var(--sp-6);
+  }
+  h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: var(--lh-heading);
+    letter-spacing: var(--tracking-heading);
+    font-weight: 600;
+    margin-bottom: var(--sp-3);
+  }
+  h4 {
+    font-family: var(--font-body);
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    margin-bottom: var(--sp-2);
+  }
+  p { margin: 0 0 var(--sp-4) 0; color: var(--fg-muted); max-width: 70ch; }
+  p.lead { font-size: var(--fs-body-lg); color: var(--fg); max-width: 64ch; }
+
+  ul.clean { list-style: none; padding: 0; margin: 0; }
+  ul.bullets { padding-left: var(--sp-5); margin: 0 0 var(--sp-4) 0; color: var(--fg-muted); }
+  ul.bullets li { margin-bottom: var(--sp-2); }
+  ul.bullets li::marker { color: var(--violet-500); }
+
+  code, pre { font-family: var(--font-mono); }
+  code.inline { font-size: 0.92em; color: var(--violet-300); background: var(--ink-800); padding: 1px 6px; border-radius: 2px; }
+  pre {
+    background: var(--ink-900);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-1);
+    padding: var(--sp-5);
+    overflow-x: auto;
+    font-size: var(--fs-mono);
+    line-height: 1.55;
+    color: var(--ink-200);
+  }
+  pre .c { color: var(--fg-faint); }
+  pre .k { color: var(--violet-300); }
+  pre .s { color: #B8D9CC; }
+
+  /* -------- Hero -------- */
+  .hero {
+    position: relative;
+    padding: var(--sp-16) 0 var(--sp-16) 0;
+    overflow: hidden;
+  }
+  .hero .bg-grid {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(to bottom, black 0%, transparent 80%);
+    pointer-events: none;
+  }
+  .hero .glow {
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(106,43,255,0.20) 0%, transparent 60%);
+    pointer-events: none;
+    filter: blur(20px);
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero h1 { font-size: clamp(40px, 6vw, 72px); }
+  .hero .lead { color: var(--fg); font-size: var(--fs-body-lg); max-width: 60ch; margin-bottom: var(--sp-8); }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: var(--sp-3);
+    margin-top: var(--sp-8);
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-caption);
+    font-weight: 500;
+    color: var(--fg-muted);
+  }
+  .pill.solid {
+    background: var(--accent-soft);
+    border-color: var(--violet-700);
+    color: var(--violet-200);
+  }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--violet-500); }
+
+  /* -------- Cards & grids -------- */
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-5); }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+  @media (max-width: 800px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-1);
+    padding: var(--sp-6);
+    transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .card:hover { border-color: var(--violet-700); }
+
+  .agent-card { display: flex; flex-direction: column; gap: var(--sp-3); }
+  .agent-card .agent-id {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--violet-300);
+    letter-spacing: 0.04em;
+  }
+  .agent-card .agent-name {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  .agent-card .agent-role {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin-bottom: var(--sp-2);
+  }
+  .agent-card .agent-when {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-muted);
+    line-height: 1.5;
+  }
+  .agent-card .agent-trigger {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-300);
+    background: var(--ink-1000);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: 2px;
+    margin-top: var(--sp-2);
+  }
+
+  /* -------- Flow diagram -------- */
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: var(--sp-8) 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-1);
+    overflow: hidden;
+  }
+  @media (max-width: 800px) {
+    .flow { grid-template-columns: 1fr; }
+  }
+  .flow-step {
+    background: var(--bg-raised);
+    padding: var(--sp-6);
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .flow-step:last-child { border-right: 0; }
+  @media (max-width: 800px) {
+    .flow-step { border-right: 0; border-bottom: 1px solid var(--border); }
+    .flow-step:last-child { border-bottom: 0; }
+  }
+  .flow-step .num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--violet-300);
+    letter-spacing: 0.06em;
+    margin-bottom: var(--sp-3);
+  }
+  .flow-step .step-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--sp-2);
+  }
+  .flow-step .step-desc {
+    font-size: var(--fs-body-sm);
+    color: var(--fg-muted);
+    line-height: 1.55;
+  }
+
+  /* -------- Feature blocks (v3.2.0) -------- */
+  .feature {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--sp-8);
+    padding: var(--sp-8) 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .feature:last-child { border-bottom: 0; }
+  @media (max-width: 800px) { .feature { grid-template-columns: 1fr; gap: var(--sp-3); } }
+  .feature .feature-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--violet-300);
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+  }
+  .feature h3 { margin-bottom: var(--sp-3); }
+  .feature p { font-size: var(--fs-body); color: var(--fg-muted); margin-bottom: var(--sp-3); }
+
+  /* -------- KPI strip -------- */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: var(--sp-8) 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-1);
+    overflow: hidden;
+  }
+  @media (max-width: 800px) { .kpi-strip { grid-template-columns: repeat(2, 1fr); } }
+  .kpi {
+    background: var(--bg-raised);
+    padding: var(--sp-5) var(--sp-6);
+    border-right: 1px solid var(--border);
+  }
+  .kpi:last-child { border-right: 0; }
+  .kpi .kpi-num {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink-100);
+    font-feature-settings: "tnum";
+    margin-bottom: var(--sp-2);
+  }
+  .kpi .kpi-num span.unit { font-size: 18px; color: var(--fg-subtle); margin-left: 4px; }
+  .kpi .kpi-label {
+    font-size: var(--fs-caption);
+    color: var(--fg-subtle);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* -------- Steps (come si parte) -------- */
+  ol.steps { list-style: none; padding: 0; margin: var(--sp-6) 0; counter-reset: step; }
+  ol.steps li {
+    counter-increment: step;
+    padding: var(--sp-5) 0 var(--sp-5) var(--sp-12);
+    position: relative;
+    border-bottom: 1px solid var(--hairline);
+  }
+  ol.steps li:last-child { border-bottom: 0; }
+  ol.steps li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0; top: var(--sp-5);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--violet-300);
+    letter-spacing: 0.06em;
+  }
+  ol.steps li h4 { font-family: var(--font-display); font-size: 18px; margin-bottom: var(--sp-2); }
+  ol.steps li p { font-size: var(--fs-body-sm); margin: 0; }
+
+  /* -------- FAQ -------- */
+  details.faq {
+    border-bottom: 1px solid var(--hairline);
+    padding: var(--sp-5) 0;
+  }
+  details.faq summary {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--fg);
+  }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary::after {
+    content: "+";
+    font-family: var(--font-mono);
+    color: var(--violet-300);
+    font-size: 20px;
+    line-height: 1;
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  details.faq[open] summary::after { content: "−"; }
+  details.faq p { margin-top: var(--sp-3); font-size: var(--fs-body-sm); }
+
+  /* -------- Footer -------- */
+  footer.site {
+    margin-top: var(--sp-16);
+    padding: var(--sp-8) 0 var(--sp-12) 0;
+    border-top: 1px solid var(--border);
+  }
+  footer.site .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--sp-8);
+    margin-bottom: var(--sp-8);
+  }
+  @media (max-width: 800px) { footer.site .footer-grid { grid-template-columns: 1fr; } }
+  footer.site .col h5 {
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin-bottom: var(--sp-3);
+    font-weight: 600;
+  }
+  footer.site .col p { font-size: 13px; }
+  footer.site .legal {
+    font-size: 11px;
+    color: var(--fg-faint);
+    letter-spacing: 0.04em;
+    border-top: 1px solid var(--hairline);
+    padding-top: var(--sp-5);
+  }
+
+  /* -------- Decorative bits -------- */
+  .arrow { color: var(--violet-300); }
+  .em { color: var(--ink-100); }
+  .quote {
+    font-family: var(--font-display);
+    font-size: 26px;
+    line-height: 1.3;
+    color: var(--ink-100);
+    border-left: 2px solid var(--violet-500);
+    padding-left: var(--sp-5);
+    margin: var(--sp-8) 0;
+    max-width: 50ch;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  table.flow-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-body-sm);
+    margin: var(--sp-6) 0;
+  }
+  table.flow-table th, table.flow-table td {
+    text-align: left;
+    padding: var(--sp-3) var(--sp-4);
+    border-bottom: 1px solid var(--hairline);
+    vertical-align: top;
+  }
+  table.flow-table th {
+    font-family: var(--font-body);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  table.flow-table td.mono { font-family: var(--font-mono); color: var(--violet-300); white-space: nowrap; font-size: 12px; }
+  table.flow-table tr:hover td { background: var(--ink-900); }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============================ SIDEBAR ============================ -->
+  <aside class="nav">
+    <div class="brand">
+      <img src="assets/logo.png" alt="Agent OS — by Djungle" />
+      <span class="sub">Manuale · v3.2</span>
+    </div>
+
+    <nav>
+      <div class="group">
+        <p class="group-title">Iniziare</p>
+        <ul>
+          <li><a href="#cosa-e">Cos'è Agent OS</a></li>
+          <li><a href="#per-chi">Per chi è</a></li>
+          <li><a href="#valore">Cosa fa per te</a></li>
+        </ul>
+      </div>
+      <div class="group">
+        <p class="group-title">Il sistema</p>
+        <ul>
+          <li><a href="#flusso">Il flusso operativo</a></li>
+          <li><a href="#agenti">Gli 8 agenti</a></li>
+          <li><a href="#knowledge">Knowledge Foundation</a></li>
+        </ul>
+      </div>
+      <div class="group">
+        <p class="group-title">Architettura</p>
+        <ul>
+          <li><a href="#stack">Lo stack</a></li>
+          <li><a href="#dati">I tuoi dati</a></li>
+        </ul>
+      </div>
+      <div class="group">
+        <p class="group-title">Operativo</p>
+        <ul>
+          <li><a href="#quickstart">Quick start</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="nav-footer">
+      Agent OS by <a href="https://djungle.io" target="_blank" rel="noopener">Djungle</a>.<br/>
+      MCP server: <code>djungle-mcp-server.vercel.app</code>
+    </div>
+  </aside>
+
+  <!-- ============================ MAIN ============================ -->
+  <main>
+
+    <!-- ============================ HERO ============================ -->
+    <section class="hero" id="cosa-e">
+      <div class="bg-grid"></div>
+      <div class="glow"></div>
+      <div class="hero-inner">
+        <span class="eyebrow">MANUALE DEL PRODOTTO · V3.2</span>
+        <h1>Otto agenti AI specializzati. Un solo sistema operativo.</h1>
+        <p class="lead">
+          Agent OS è il sistema con cui un CEO gestisce un team di agenti AI come gestirebbe un team di persone.
+          Ogni agente ha un ruolo, una memoria, una storia. Tu li chiami, lavorano, lasciano traccia.
+          Niente prompt da copiare ogni volta. Niente contesto perso. Niente <span class="em">"riparti da zero"</span>.
+        </p>
+
+        <div class="hero-meta">
+          <span class="pill solid"><span class="dot"></span> v3.2 — Knowledge Foundation</span>
+          <span class="pill">Italiano · English</span>
+          <span class="pill">Plug &amp; play su Claude</span>
+          <span class="pill">Multi-tenant</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ KPI STRIP ============================ -->
+    <section style="padding-top: 0; border-top: 0;">
+      <div class="kpi-strip">
+        <div class="kpi">
+          <div class="kpi-num">8</div>
+          <div class="kpi-label">Agenti operativi</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num">6</div>
+          <div class="kpi-label">Database collegati</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num">4</div>
+          <div class="kpi-label">Step del flusso</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num">0<span class="unit">prompt</span></div>
+          <div class="kpi-label">Da copiare ogni volta</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ PER CHI E ============================ -->
+    <section id="per-chi">
+      <span class="eyebrow">PER CHI È</span>
+      <h2>Per CEO che hanno smesso di prompt-engineerare ogni mattina.</h2>
+      <p class="lead">
+        Se oggi usi l'AI come una calcolatrice — apri una chat, chiedi una cosa, copi la risposta, chiudi —
+        Agent OS è quello che separa quel modo di lavorare da una vera operatività AI-native.
+      </p>
+
+      <div class="grid-3" style="margin-top: var(--sp-8);">
+        <div class="card">
+          <h4>CEO di PMI</h4>
+          <p style="font-size: var(--fs-body-sm); margin: 0;">
+            Vuoi un team di consulenti AI sempre disponibili — strategy, marketing, operations, prodotto —
+            senza pagare 8 fee mensili a 8 persone diverse.
+          </p>
+        </div>
+        <div class="card">
+          <h4>Founder seriali</h4>
+          <p style="font-size: var(--fs-body-sm); margin: 0;">
+            Hai 5 progetti aperti contemporaneamente. Ti serve memoria condivisa per ognuno.
+            Niente "ah giusto, dove eravamo rimasti?".
+          </p>
+        </div>
+        <div class="card">
+          <h4>Operatori dell'innovazione</h4>
+          <p style="font-size: var(--fs-body-sm); margin: 0;">
+            Gestisci accelerazione, venture building, turnaround.
+            Hai bisogno di processi ripetibili, non di magia LLM una tantum.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ COSA FA PER TE ============================ -->
+    <section id="valore">
+      <span class="eyebrow">COSA FA PER TE</span>
+      <h2>Tre cose che una chat normale non fa.</h2>
+
+      <div class="feature">
+        <div class="feature-tag">01 / RUOLO</div>
+        <div>
+          <h3>Specializzazione vera, non camuffata.</h3>
+          <p>
+            Ogni agente ha un system prompt costruito per un mestiere preciso — non una "persona generica con un cappello diverso".
+            Vince ragiona da CMO con 15 anni di campagne addosso. Iron parla la lingua dei P&amp;L. Set pensa come un CdA.
+            Quando chiami Vince, ottieni Vince. Non una versione travestita di Claude.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-tag">02 / MEMORIA</div>
+        <div>
+          <h3>Le sessioni si sommano. Il contesto cresce.</h3>
+          <p>
+            Ogni chat con un agente lascia traccia: decisioni prese, learnings, KPI toccati, prossimi passi.
+            Quando lo richiami fra una settimana, lui sa già dove eravate rimasti. Niente "fammi riassumere il contesto" da te al ritmo di tre paragrafi a sessione.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-tag">03 / GOVERNANCE</div>
+        <div>
+          <h3>Iniziative, non conversazioni.</h3>
+          <p>
+            Il lavoro vive dentro <em>iniziative</em> — il prodotto, il cliente, la campagna, il pilot.
+            Ogni iniziativa ha la sua SOTA (State of the Art): cosa è, dove sta oggi, ultime mosse, prossima azione, decisioni prese.
+            Gli agenti la leggono prima di rispondere. Tu la leggi prima di una riunione.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ FLUSSO ============================ -->
+    <section id="flusso">
+      <span class="eyebrow">IL FLUSSO OPERATIVO</span>
+      <h2>Quattro passi. Sempre gli stessi.</h2>
+      <p class="lead">
+        Quando lavori con un agente, segui un ciclo che il sistema gestisce per te.
+        Sei tu a guidare la conversazione — il resto è automatico.
+      </p>
+
+      <div class="flow">
+        <div class="flow-step">
+          <div class="num">01 / INVOKE</div>
+          <div class="step-name">Chiami l'agente</div>
+          <p class="step-desc">
+            Dici <code class="inline">/invoke vince</code> oppure scrivi semplicemente "voglio lavorare con Vince sulla campagna X".
+            Il sistema apre una sessione, carica il suo prompt, gli passa la SOTA dell'iniziativa, gli ricorda gli handoff pending.
+          </p>
+        </div>
+        <div class="flow-step">
+          <div class="num">02 / CHAT</div>
+          <div class="step-name">Lavorate insieme</div>
+          <p class="step-desc">
+            Conversazione normale — solo che l'agente arriva già briefato e in carattere.
+            Risponde da CMO, non da chatbot. Sa cosa hai fatto la volta scorsa.
+          </p>
+        </div>
+        <div class="flow-step">
+          <div class="num">03 / WRITEBACK</div>
+          <div class="step-name">Salvi la sessione</div>
+          <p class="step-desc">
+            Dici <code class="inline">/wb</code>. Il sistema estrae da solo: decisioni prese, output prodotti, performance dell'agente, segnali di evoluzione.
+            Tutto scritto sul tuo Notion. Niente da appuntare a mano.
+          </p>
+        </div>
+        <div class="flow-step">
+          <div class="num">04 / EVOLVE</div>
+          <div class="step-name">L'agente migliora</div>
+          <p class="step-desc">
+            I writeback diventano materiale di training: ogni N sessioni l'agente assorbe pattern che funzionano e ne scarta altri.
+            Più lo usi, più ti somiglia.
+          </p>
+        </div>
+      </div>
+
+      <div class="quote">
+        Non scrivi prompt. Hai un team. Quando chiami un membro, lui sa cosa stai facendo, perché lo stai facendo, e cosa è andato storto la settimana scorsa.
+      </div>
+    </section>
+
+    <!-- ============================ AGENTI ============================ -->
+    <section id="agenti">
+      <span class="eyebrow">GLI 8 AGENTI</span>
+      <h2>Otto ruoli, otto teste. Una sola squadra.</h2>
+      <p class="lead">
+        Ognuno ha un dominio chiaro, un nome, un'identità. Quando hai un dubbio su chi chiamare,
+        Agent OS ti suggerisce — ma una volta che ci prendi la mano, sai a colpo sicuro chi ti serve.
+      </p>
+
+      <table class="flow-table">
+        <thead>
+          <tr>
+            <th>Agente</th>
+            <th>ID</th>
+            <th>Ruolo</th>
+            <th>Quando lo chiami</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Dean</strong></td><td class="mono">AGT-1</td><td>Growth Strategist</td><td>Workshop, keynote, materiali formativi</td></tr>
+          <tr><td><strong>Lora</strong></td><td class="mono">AGT-2</td><td>CPO Challenger</td><td>Decisioni di prodotto, UX, storytelling</td></tr>
+          <tr><td><strong>Vince</strong></td><td class="mono">AGT-3</td><td>CMO</td><td>Campagne, funnel, copy, brand</td></tr>
+          <tr><td><strong>Spacey</strong></td><td class="mono">AGT-4</td><td>Program Director</td><td>Acceleratore, valutazione startup, open innovation</td></tr>
+          <tr><td><strong>Iron</strong></td><td class="mono">AGT-5</td><td>COO</td><td>Operations, KPI, P&amp;L, turnaround</td></tr>
+          <tr><td><strong>Set</strong></td><td class="mono">AGT-6</td><td>Board Strategist</td><td>Strategia di gruppo, piano industriale, investor relations</td></tr>
+          <tr><td><strong>Focus</strong></td><td class="mono">AGT-7</td><td>Chief of Time</td><td>Pianificazione settimanale, prioritizzazione</td></tr>
+          <tr><td><strong>Doc</strong></td><td class="mono">AGT-8</td><td>Chief AI Architect</td><td>Architettura AI, automazione, decisioni tecniche</td></tr>
+        </tbody>
+      </table>
+
+      <div class="grid-2" style="margin-top: var(--sp-8);">
+
+        <div class="card agent-card">
+          <span class="agent-id">AGT-3 · CMO</span>
+          <span class="agent-name">Vince</span>
+          <span class="agent-role">Marketing &amp; Brand</span>
+          <span class="agent-when">
+            Lo chiami quando devi parlare al mercato. Campagne, posizionamento, copy, funnel, brand.
+            Ragiona in CAC, LTV, ROAS — ma parte sempre dal "perché" del progetto, non dalla tecnica.
+          </span>
+          <code class="agent-trigger">/invoke vince</code>
+        </div>
+
+        <div class="card agent-card">
+          <span class="agent-id">AGT-6 · BOARD STRATEGIST</span>
+          <span class="agent-name">Set</span>
+          <span class="agent-role">Strategia di gruppo</span>
+          <span class="agent-when">
+            Lo chiami per il piano industriale, le slide del CdA, i memo per gli investitori, le decisioni di governance.
+            Pensa a cinque anni, non al trimestre.
+          </span>
+          <code class="agent-trigger">/invoke set</code>
+        </div>
+
+        <div class="card agent-card">
+          <span class="agent-id">AGT-5 · COO</span>
+          <span class="agent-name">Iron</span>
+          <span class="agent-role">Operations &amp; Finance</span>
+          <span class="agent-when">
+            Lo chiami quando i numeri devono tornare. Processi, KPI, P&amp;L, turnaround, operations.
+            È l'unico agente che usi anche per i clienti, non solo per te.
+          </span>
+          <code class="agent-trigger">/invoke iron</code>
+        </div>
+
+        <div class="card agent-card">
+          <span class="agent-id">AGT-8 · CHIEF AI ARCHITECT</span>
+          <span class="agent-name">Doc</span>
+          <span class="agent-role">Tech &amp; Architettura AI</span>
+          <span class="agent-when">
+            Lo chiami per progettare gli altri agenti, decidere l'architettura, fare debito zero, scegliere lo stack.
+            È l'agente che costruisce gli agenti.
+          </span>
+          <code class="agent-trigger">/invoke doc</code>
+        </div>
+
+        <div class="card agent-card">
+          <span class="agent-id">AGT-7 · CHIEF OF TIME</span>
+          <span class="agent-name">Focus</span>
+          <span class="agent-role">Priorità &amp; Tempo</span>
+          <span class="agent-when">
+            Lo chiami il lunedì per pianificare la settimana e ogni mattina per il daily.
+            Coach diretto: ti dice quello che gli altri non hanno il coraggio di dirti.
+          </span>
+          <code class="agent-trigger">/invoke focus</code>
+        </div>
+
+        <div class="card agent-card">
+          <span class="agent-id">AGT-1 · GROWTH STRATEGIST</span>
+          <span class="agent-name">Dean</span>
+          <span class="agent-role">Formazione &amp; Contenuti</span>
+          <span class="agent-when">
+            Lo chiami per costruire workshop, keynote, materiali Djungle School, contenuti formativi.
+            Non è un copywriter — è uno stratega del trasferimento di sapere.
+          </span>
+          <code class="agent-trigger">/invoke dean</code>
+        </div>
+
+        <div class="card agent-card">
+          <span class="agent-id">AGT-2 · CPO CHALLENGER</span>
+          <span class="agent-name">Lora</span>
+          <span class="agent-role">Prodotto &amp; UX</span>
+          <span class="agent-when">
+            La chiami per stressare le tue idee di prodotto. Ti sfida — non ti compiace.
+            Storytelling AI, decisioni di prodotto, esperienza utente.
+          </span>
+          <code class="agent-trigger">/invoke lora</code>
+        </div>
+
+        <div class="card agent-card">
+          <span class="agent-id">AGT-4 · PROGRAM DIRECTOR</span>
+          <span class="agent-name">Spacey</span>
+          <span class="agent-role">Acceleratore &amp; Startup</span>
+          <span class="agent-when">
+            La chiami per Space for Imagination, la valutazione di una startup, la struttura di un programma corporate.
+            Framework Graham / Fink / Tamburi / Thiel sempre in tasca.
+          </span>
+          <code class="agent-trigger">/invoke spacey</code>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================ KNOWLEDGE FOUNDATION ============================ -->
+    <section id="knowledge">
+      <span class="eyebrow">v3.2 · KNOWLEDGE FOUNDATION</span>
+      <h2>Il salto: dal "ricordare bene" al "sapere dove sei".</h2>
+      <p class="lead">
+        Fino a v3.1 gli agenti avevano memoria — leggevano sessioni passate, decisioni, learnings.
+        Con v3.2 hanno qualcosa di più importante: <span class="em">stato vivo</span> di ogni iniziativa che gestisci.
+      </p>
+
+      <div class="feature">
+        <div class="feature-tag">INITIATIVE</div>
+        <div>
+          <h3>L'unità di lavoro persistente.</h3>
+          <p>
+            Ogni cosa che vale la pena tracciare diventa un'<em>iniziativa</em> — il prodotto Agent OS Platform,
+            il workshop di Dicembre, il pilot Rentable, il lancio della campagna Q1.
+            Le iniziative hanno tipo (business, experiment, project, asset), stage, health,
+            e si linkano fra loro (X depends_on Y, X output_of Y).
+          </p>
+          <p>
+            Quando chiami un agente, gli dici su quale iniziativa lavorate. Tutto quello che fa resta lì,
+            non si mescola con altro.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-tag">SOTA</div>
+        <div>
+          <h3>State of the Art — le sei sezioni che contano.</h3>
+          <p>
+            Per ogni iniziativa, sei caselle vive che gli agenti aggiornano e tu leggi:
+          </p>
+          <ul class="bullets">
+            <li><strong>what_it_is</strong> — la frase che spiega cos'è in un colpo solo</li>
+            <li><strong>current_state</strong> — dove siamo oggi, in modo onesto</li>
+            <li><strong>last_3_moves</strong> — le ultime tre cose successe, con data</li>
+            <li><strong>open_loops</strong> — cose lasciate aperte che richiedono follow-up</li>
+            <li><strong>next_action</strong> — la prossima mossa concreta</li>
+            <li><strong>decisions_log</strong> — le decisioni prese e perché</li>
+          </ul>
+          <p>
+            Non è un documento da scrivere a mano. È un layer che si compila lavorando — gli agenti lo aggiornano,
+            tu lo leggi prima di una riunione o di un commercio.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-tag">PROBE</div>
+        <div>
+          <h3>Diagnostica strutturale, sempre attiva.</h3>
+          <p>
+            Quando un agente entra su un'iniziativa, il Probe gli passa anche le <em>carenze rilevate</em>:
+            sezioni SOTA vuote, KPI mancanti, open loop aperti da troppo tempo, iniziative ferme.
+            L'agente le segnala prima di rispondere al task — così tu vedi cosa è da sistemare,
+            ma sei sempre tu a decidere se intervenire ora o dopo.
+          </p>
+          <p>
+            Niente auto-fix. Niente "ho aggiornato la SOTA per te" — è materiale tuo.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-tag">HANDOFF</div>
+        <div>
+          <h3>Da agente ad agente, tracciato.</h3>
+          <p>
+            Quando Set finisce una nota strategica e serve a Vince per declinarla in campagna, parte un handoff.
+            Vince lo trova all'avvio della prossima sessione, lo legge, lo consuma o lo posticipa.
+            Niente passaggi a voce, niente conversazioni perse.
+          </p>
+          <p>
+            Tu vedi tutto in un'unica cartella di mirror locale (<code class="inline">~/Documents/Claude/djungle-context/</code>) —
+            è il tuo audit trail leggibile.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ STACK ============================ -->
+    <section id="stack">
+      <span class="eyebrow">LO STACK</span>
+      <h2>Costruito su strumenti che già usi.</h2>
+      <p class="lead">
+        Niente nuova app da imparare. Niente dashboard proprietaria.
+        Agent OS si infila dentro la tua interfaccia Claude e diventa parte del tuo modo di lavorare.
+      </p>
+
+      <table class="flow-table">
+        <thead>
+          <tr><th>Componente</th><th>Tecnologia</th><th>Cosa fa</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Frontend</strong></td>
+            <td class="mono">Claude Desktop · Cowork</td>
+            <td>L'interfaccia con cui parli agli agenti — quella che già conosci.</td>
+          </tr>
+          <tr>
+            <td><strong>Plugin</strong></td>
+            <td class="mono">djungle-agent-os.plugin</td>
+            <td>Le skill <code class="inline">/invoke</code>, <code class="inline">/wb</code>, <code class="inline">/sota</code>, <code class="inline">/handoff</code> dentro Claude.</td>
+          </tr>
+          <tr>
+            <td><strong>MCP server</strong></td>
+            <td class="mono">Vercel · Edge Functions</td>
+            <td>Il ponte fra Claude e i tuoi dati. OAuth-based, multi-tenant.</td>
+          </tr>
+          <tr>
+            <td><strong>Knowledge layer</strong></td>
+            <td class="mono">Supabase · Postgres</td>
+            <td>Iniziative, SOTA, sessioni, handoff, memory log — tutto strutturato e queryable.</td>
+          </tr>
+          <tr>
+            <td><strong>Identità agenti</strong></td>
+            <td class="mono">Notion</td>
+            <td>System prompt, capabilities, knowledge base — editabili come pagine Notion.</td>
+          </tr>
+          <tr>
+            <td><strong>Modello AI</strong></td>
+            <td class="mono">Claude Sonnet · Opus</td>
+            <td>L'engine che fa parlare gli agenti. Anthropic, top di gamma.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================ DATI ============================ -->
+    <section id="dati">
+      <span class="eyebrow">I TUOI DATI</span>
+      <h2>Restano tuoi. Stop.</h2>
+
+      <div class="grid-2" style="margin-top: var(--sp-6);">
+        <div class="card">
+          <h4>Multi-tenant rigoroso</h4>
+          <p style="font-size: var(--fs-body-sm); margin: 0;">
+            Ogni cliente ha il suo schema isolato. I tuoi handoff, le tue SOTA, le tue decisioni
+            non finiscono mai dentro la knowledge di un altro cliente. Nemmeno per sbaglio.
+          </p>
+        </div>
+        <div class="card">
+          <h4>L'IP degli agenti resta a Djungle</h4>
+          <p style="font-size: var(--fs-body-sm); margin: 0;">
+            I system prompt, i prompt module, le capabilities — il "cervello" degli agenti — sono nostri.
+            Tu vedi le risposte, non le viscere. È quello che giustifica la fee.
+          </p>
+        </div>
+        <div class="card">
+          <h4>Mirror locale</h4>
+          <p style="font-size: var(--fs-body-sm); margin: 0;">
+            Tutti gli handoff, le decisioni, i report librarian arrivano anche su disco —
+            in <code class="inline">~/Documents/Claude/[tenant]-context/</code>.
+            Audit trail leggibile, file system-grade. Esportabile sempre.
+          </p>
+        </div>
+        <div class="card">
+          <h4>OAuth, non API key</h4>
+          <p style="font-size: var(--fs-body-sm); margin: 0;">
+            Niente <code class="inline">.env</code> da gestire. Connetti il plugin a Claude e l'autenticazione
+            passa da OAuth — revocabile dalle impostazioni del tenant in qualsiasi momento.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ QUICK START ============================ -->
+    <section id="quickstart">
+      <span class="eyebrow">QUICK START</span>
+      <h2>I primi 30 minuti.</h2>
+      <p class="lead">
+        Non c'è onboarding di tre giorni. Apri Claude, installi il plugin, lavori.
+      </p>
+
+      <ol class="steps">
+        <li>
+          <h4>Installa il plugin Cowork</h4>
+          <p>Dal pannello plugin di Claude, cerca <code class="inline">djungle-agent-os</code> e installa. Trenta secondi.</p>
+        </li>
+        <li>
+          <h4>Connetti il tenant</h4>
+          <p>Al primo invoke, OAuth ti chiede di confermare il tenant. Una volta. Da lì in poi sei dentro.</p>
+        </li>
+        <li>
+          <h4>Crea la prima iniziativa</h4>
+          <p>Scrivi <code class="inline">/initiative create [nome]</code>. Tipo, stage, dominio. Trenta secondi.</p>
+        </li>
+        <li>
+          <h4>Invoca il primo agente</h4>
+          <p>Per partire, prova Focus o Vince — sono i più produttivi nei primi giorni. <code class="inline">/invoke focus</code></p>
+        </li>
+        <li>
+          <h4>Chiudi sempre con writeback</h4>
+          <p>A fine sessione, <code class="inline">/wb</code>. È l'abitudine che separa chi usa Agent OS da chi lo possiede.</p>
+        </li>
+      </ol>
+
+      <pre><span class="c"># Ciclo tipico — un lunedì mattina</span>
+<span class="k">/invoke</span> focus
+<span class="c">→ pianifichi la settimana, lui ti sfida sulle priorità</span>
+<span class="k">/wb</span>
+<span class="c">→ la sessione è salvata, le tue priorità diventano next_action sulle iniziative</span>
+
+<span class="k">/invoke</span> vince <span class="s">"sulla campagna Q2"</span>
+<span class="c">→ Vince entra già briefato, vede l'handoff che Set ha lasciato venerdì</span>
+<span class="c">→ producete il copy, lui chiude con un handoff per Doc per la landing</span>
+<span class="k">/wb</span></pre>
+    </section>
+
+    <!-- ============================ FAQ ============================ -->
+    <section id="faq">
+      <span class="eyebrow">DOMANDE RICORRENTI</span>
+      <h2>Quello che chiedono prima di partire.</h2>
+
+      <details class="faq" open>
+        <summary>Devo essere uno sviluppatore per usarlo?</summary>
+        <p>
+          No. Se sai usare Notion e Claude, sai usare Agent OS.
+          Le skill (<code class="inline">/invoke</code>, <code class="inline">/wb</code>, <code class="inline">/sota</code>) si chiamano scrivendo —
+          niente terminale, niente codice. Lo stack tecnico esiste ma è invisibile.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>I miei dati finiscono in un modello pubblico?</summary>
+        <p>
+          No. Le conversazioni passano da Claude (Anthropic), che ha policy enterprise.
+          Iniziative, SOTA, handoff, sessioni stanno sul tuo schema isolato in Postgres.
+          Il mirror locale è sul tuo disco. L'IP degli agenti è di Djungle, ma non si confonde con i tuoi dati.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>Posso aggiungere agenti miei?</summary>
+        <p>
+          Sì — è esattamente il modello. Ogni cliente parte con un set base e poi forgia agenti propri sul suo dominio
+          (un commerciale, un controller, un legal). Doc è l'agente che ti accompagna a costruirne di nuovi.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>Cosa succede se Claude non risponde bene?</summary>
+        <p>
+          La sessione resta tracciata, lo writeback registra il problema come "performance signal",
+          e nella fase EVOLVE il system prompt viene rivisto. L'agente non ti restituisce solo output —
+          ti restituisce anche dati su sé stesso.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>Quanto costa?</summary>
+        <p>
+          Modello: setup fee per l'onboarding del tenant + abbonamento mensile per agente attivo + consulenza opzionale.
+          La trattativa è case-by-case. <a href="mailto:hello@djungle.io">hello@djungle.io</a> per il dettaglio.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>Funziona in inglese?</summary>
+        <p>
+          Sì. Gli agenti rispondono nella lingua in cui scrivi.
+          Il prompt di sistema è scritto in italiano (lingua operativa di Djungle), ma il modello tiene il bilinguismo nativamente.
+        </p>
+      </details>
+
+      <details class="faq">
+        <summary>Posso usarlo anche per i miei clienti?</summary>
+        <p>
+          Sì — è uno dei modelli d'uso. Iron, in particolare, viene installato presso clienti in turnaround.
+          Il tenant del cliente è isolato dal tuo. La fattura è separata, la knowledge anche.
+        </p>
+      </details>
+    </section>
+
+    <!-- ============================ FOOTER ============================ -->
+    <footer class="site">
+      <div class="footer-grid">
+        <div class="col">
+          <h5>Agent OS</h5>
+          <p style="color: var(--fg-muted);">
+            Il sistema operativo per gestire un team di agenti AI specializzati.<br/>
+            Costruito da <a href="https://djungle.io">Djungle</a>.
+          </p>
+        </div>
+        <div class="col">
+          <h5>Risorse</h5>
+          <p><a href="https://agents.djungle.io">agents.djungle.io</a></p>
+          <p><a href="https://djungle-mcp-server.vercel.app/mcp">MCP server</a></p>
+        </div>
+        <div class="col">
+          <h5>Contatti</h5>
+          <p><a href="mailto:hello@djungle.io">hello@djungle.io</a></p>
+          <p><a href="https://djungle.io">djungle.io</a></p>
+        </div>
+      </div>
+      <p class="legal">© 2026 Djungle Holding · Manuale del prodotto v3.2 · Aggiornato 7 maggio 2026</p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // Active link sync — minimal, no dependencies
+  const sections = document.querySelectorAll('main section[id]');
+  const links = document.querySelectorAll('aside.nav nav a[href^="#"]');
+  const map = {};
+  links.forEach(a => { map[a.getAttribute('href').slice(1)] = a; });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(a => a.classList.remove('active'));
+        const link = map[entry.target.id];
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
