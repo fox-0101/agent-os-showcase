@@ -24,6 +24,7 @@
     line-height: var(--lh-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
   a { color: var(--accent); text-decoration: none; transition: color var(--dur-fast) var(--ease-out); }
   a:hover { color: var(--violet-300); text-decoration: underline; text-underline-offset: 4px; }
@@ -48,9 +49,13 @@
     padding: var(--sp-6) var(--sp-5);
     display: flex; flex-direction: column;
     overflow-y: auto;
+    min-width: 0;
   }
   @media (max-width: 960px) {
     aside.nav { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+  }
+  @media (max-width: 600px) {
+    aside.nav { padding: var(--sp-5) var(--sp-4); }
   }
   .brand {
     display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-3);
@@ -111,9 +116,13 @@
   main {
     padding: var(--sp-12) var(--sp-12);
     max-width: 1080px;
+    min-width: 0; /* grid item: previene overflow da min-content children */
   }
   @media (max-width: 960px) {
     main { padding: var(--sp-8) var(--sp-6); }
+  }
+  @media (max-width: 600px) {
+    main { padding: var(--sp-6) var(--sp-4); }
   }
 
   section { padding: var(--sp-16) 0; border-top: 1px solid var(--hairline); }
@@ -137,8 +146,10 @@
     letter-spacing: var(--tracking-display);
     font-weight: 500;
     text-wrap: balance;
+    overflow-wrap: break-word;
     margin-bottom: var(--sp-6);
   }
+  h2, h3, h4 { overflow-wrap: break-word; }
   h2 {
     font-family: var(--font-display);
     font-size: var(--fs-h1);
@@ -170,7 +181,7 @@
   ul.bullets li::marker { color: var(--violet-500); }
 
   code, pre { font-family: var(--font-mono); }
-  code.inline { font-size: 0.92em; color: var(--violet-300); background: var(--ink-800); padding: 1px 6px; border-radius: 2px; }
+  code.inline { font-size: 0.92em; color: var(--violet-300); background: var(--ink-800); padding: 1px 6px; border-radius: 2px; overflow-wrap: anywhere; }
   pre {
     background: var(--ink-900);
     border: 1px solid var(--border);
@@ -359,6 +370,7 @@
     overflow: hidden;
   }
   @media (max-width: 800px) { .kpi-strip { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px) { .kpi-strip { grid-template-columns: 1fr; } }
   .kpi {
     background: var(--bg-raised);
     padding: var(--sp-5) var(--sp-6);
@@ -501,6 +513,12 @@
   }
   table.flow-table td.mono { font-family: var(--font-mono); color: var(--violet-300); white-space: nowrap; font-size: 12px; }
   table.flow-table tr:hover td { background: var(--ink-900); }
+  /* Wrapper per scroll orizzontale tabelle larghe su mobile */
+  @media (max-width: 700px) {
+    table.flow-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+    table.flow-table th, table.flow-table td { white-space: normal; }
+    table.flow-table td.mono { white-space: nowrap; }
+  }
 </style>
 </head>
 <body>
