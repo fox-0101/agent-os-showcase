@@ -511,7 +511,7 @@
   <aside class="nav">
     <div class="brand">
       <img src="assets/logo.png" alt="Agent OS — by Djungle" />
-      <span class="sub">Manuale · v3.2</span>
+      <span class="sub">Manuale · v3.5</span>
     </div>
 
     <nav>
@@ -527,8 +527,10 @@
         <p class="group-title">Il sistema</p>
         <ul>
           <li><a href="#flusso">Il flusso operativo</a></li>
-          <li><a href="#agenti">Gli 8 agenti</a></li>
+          <li><a href="#agenti">I 10 agenti</a></li>
           <li><a href="#knowledge">Knowledge Foundation</a></li>
+          <li><a href="#scribe">Auto-update Engine</a></li>
+          <li><a href="#marketplace">Marketplace</a></li>
         </ul>
       </div>
       <div class="group">
@@ -561,8 +563,8 @@
       <div class="bg-grid"></div>
       <div class="glow"></div>
       <div class="hero-inner">
-        <span class="eyebrow">MANUALE DEL PRODOTTO · V3.2</span>
-        <h1>Otto agenti AI specializzati. Un solo sistema operativo.</h1>
+        <span class="eyebrow">MANUALE DEL PRODOTTO · V3.5</span>
+        <h1>Dieci agenti AI specializzati. Un solo sistema operativo.</h1>
         <p class="lead">
           Agent OS è il sistema con cui un CEO gestisce un team di agenti AI come gestirebbe un team di persone.
           Ogni agente ha un ruolo, una memoria, una storia. Tu li chiami, lavorano, lasciano traccia.
@@ -570,10 +572,11 @@
         </p>
 
         <div class="hero-meta">
-          <span class="pill solid"><span class="dot"></span> v3.2 — Knowledge Foundation</span>
+          <span class="pill solid"><span class="dot"></span> v3.5 — Agents Marketplace</span>
           <span class="pill">Italiano · English</span>
           <span class="pill">Plug &amp; play su Claude</span>
           <span class="pill">Multi-tenant</span>
+          <span class="pill">Auto-update SOTA</span>
         </div>
       </div>
     </section>
@@ -582,12 +585,12 @@
     <section style="padding-top: 0; border-top: 0;">
       <div class="kpi-strip">
         <div class="kpi">
-          <div class="kpi-num">8</div>
+          <div class="kpi-num">10</div>
           <div class="kpi-label">Agenti operativi</div>
         </div>
         <div class="kpi">
-          <div class="kpi-num">6</div>
-          <div class="kpi-label">Database collegati</div>
+          <div class="kpi-num">46</div>
+          <div class="kpi-label">Tool MCP esposti</div>
         </div>
         <div class="kpi">
           <div class="kpi-num">4</div>
@@ -751,6 +754,8 @@
           <tr><td><strong>Set</strong></td><td class="mono">AGT-6</td><td>Board Strategist</td><td>Strategia di gruppo, piano industriale, investor relations</td></tr>
           <tr><td><strong>Focus</strong></td><td class="mono">AGT-7</td><td>Chief of Time</td><td>Pianificazione settimanale, prioritizzazione</td></tr>
           <tr><td><strong>Doc</strong></td><td class="mono">AGT-8</td><td>Chief AI Architect</td><td>Architettura AI, automazione, decisioni tecniche</td></tr>
+          <tr><td><strong>Bookey</strong></td><td class="mono">AGT-9</td><td>Scheduling Agent</td><td>Agenda, scheduling con prospect/clienti, filtro inbound</td></tr>
+          <tr><td><strong>Han</strong></td><td class="mono">AGT-10</td><td>Co-Founder Agentico</td><td>Djungle SOLO + consulting, P&amp;L cost-out, cap table, deal terms</td></tr>
         </tbody>
       </table>
 
@@ -928,6 +933,145 @@
       </div>
     </section>
 
+    <!-- ============================ AUTO-UPDATE ENGINE (v3.3) ============================ -->
+    <section id="scribe">
+      <span class="eyebrow">v3.3 · AUTO-UPDATE ENGINE</span>
+      <h2>L'AI ora scrive da sola. Tu confermi al writeback.</h2>
+      <p class="lead">
+        Fino a v3.2 lo stato delle iniziative lo aggiornavi a mano, sezione per sezione.
+        Con v3.3 entra in gioco lo <span class="em">Scribe</span>: un sotto-processo invisibile che ascolta la conversazione,
+        riconosce i fatti che racconti, e li bufferizza come delta SOTA proposti.
+        Al <code class="inline">/wb</code> li vedi tutti raggruppati per iniziativa e li confermi in un colpo solo.
+      </p>
+
+      <div class="feature">
+        <div class="feature-tag">SCRIBE</div>
+        <div>
+          <h3>La stenografa silenziosa.</h3>
+          <p>
+            Mentre chatti con un agente, lo Scribe classifica le tue frasi-fatto in 8 tipi:
+            <em>stage_change</em> ("ho chiuso il deal"), <em>move_done</em> ("ho fatto la call"),
+            <em>decision</em>, <em>open_loop_new/closed</em>, <em>reference</em>, <em>metric</em>, <em>next_action_change</em>.
+            Niente commenti in chat, niente "ho rilevato…" — totalmente invisibile fino al wb.
+          </p>
+          <p>
+            Confidence high → bufferizzato. Medium → bufferizzato. Low → scartato server-side.
+            Mai falsi positivi auto-applicati: la SOTA è semantica, non automatica.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-tag">/WB PIPELINE</div>
+        <div>
+          <h3>Review batch, conferma, commit.</h3>
+          <p>
+            Al writeback la pipeline a 5 step ti mostra:
+          </p>
+          <ul class="bullets">
+            <li>Summary della sessione (close + memory log cross-post con initiative_id)</li>
+            <li>Buffer Scribe raggruppato per iniziativa con preview testuale</li>
+            <li>Diff proposti su <em>last_3_moves</em>, <em>decisions_log</em>, <em>open_loops</em>, <em>next_action</em>, <em>stage</em></li>
+            <li>Scelta: Y (tutti) · n (scarta) · review-singolo (uno per uno)</li>
+            <li>Commit atomico, audit log, probe cache invalidata</li>
+          </ul>
+          <p>
+            Sessione abbandonata? Buffer pending dura 24h. Alla prossima invocazione l'agente ti chiede:
+            "ho 4 fact pending da una sessione di 30min fa, processo?".
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-tag">/SCRIBE-STATUS</div>
+        <div>
+          <h3>Debug del buffer in tempo reale.</h3>
+          <p>
+            Vuoi sapere cosa lo Scribe ha catturato fin qui senza fare wb? <code class="inline">/scribe-status</code>
+            te lo mostra raggruppato per iniziativa, con confidence inline e flag per slug non risolti.
+            Read-only — niente write, niente commit, solo ispezione.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ MARKETPLACE (v3.5) ============================ -->
+    <section id="marketplace">
+      <span class="eyebrow">v3.5 · AGENTS MARKETPLACE</span>
+      <h2>Gli agenti diventano un prodotto. Tuo, dei clienti, di chiunque pubblichi.</h2>
+      <p class="lead">
+        Fino a v3.4 gli agenti vivevano su Notion — utile come archivio, ma non scalabile.
+        Con v3.5 sono <span class="em">canonical su Supabase</span>: latenza ~50ms invece di ~2s,
+        modello visibility <em>public/private</em>, marketplace cross-tenant pronto, mirror Notion read-only.
+      </p>
+
+      <div class="feature">
+        <div class="feature-tag">VISIBILITY</div>
+        <div>
+          <h3>Public vs private. Owner vs consumer.</h3>
+          <p>
+            Ogni agente ha un <code class="inline">owner_tenant_id</code> (chi lo possiede) e una visibility:
+          </p>
+          <ul class="bullets">
+            <li><strong>public</strong> — visibile a tutti i tenant del sistema, marketplace pickup</li>
+            <li><strong>private</strong> — visibile solo all'owner</li>
+          </ul>
+          <p>
+            Quando un consumer invoca un agente public di un altro tenant, RLS garantisce isolamento totale:
+            l'agente public lavora nel context del consumer, vede SOLO i suoi dati. Il publisher non vede mai il consumer.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-tag">/MARKETPLACE</div>
+        <div>
+          <h3>Discovery cross-tenant.</h3>
+          <p>
+            La skill <code class="inline">/marketplace</code> elenca gli agenti pubblici di tutti i tenant,
+            con badge <em>verified</em> (Djungle, IP core) o <em>community</em> (third-party publishers).
+            Search testuale, ordinamento per <em>invoke_count</em> DESC, esclude il <em>system_prompt</em>
+            (IP del publisher protetta).
+          </p>
+          <p>
+            Per usare un agente trovato: <code class="inline">/invoke &lt;name&gt;</code>. Niente install, niente clone.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-tag">/AGENT</div>
+        <div>
+          <h3>CRUD owner-only sui tuoi agenti.</h3>
+          <p>
+            Crei, aggiorni, pubblichi, archivi i tuoi agenti via skill:
+          </p>
+          <ul class="bullets">
+            <li><code class="inline">/agent create &lt;slug&gt; "&lt;name&gt;" "&lt;role&gt;" "&lt;prompt&gt;"</code></li>
+            <li><code class="inline">/agent update &lt;slug&gt; system_prompt="…"</code></li>
+            <li><code class="inline">/agent publish &lt;slug&gt;</code> — diventa visibile cross-tenant</li>
+            <li><code class="inline">/agent unpublish &lt;slug&gt;</code> — torna private</li>
+            <li><code class="inline">/agent archive &lt;slug&gt;</code> — soft-delete con audit</li>
+          </ul>
+          <p>
+            RLS server-side blocca write cross-tenant: anche con uno slug di un altro tenant, l'update fallisce.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-tag">NOTION MIRROR</div>
+        <div>
+          <h3>Notion resta come archivio leggibile, sync 1×/giorno.</h3>
+          <p>
+            Supabase è canonical per ogni read runtime. Notion riceve solo lo specchio dei metadati
+            (status, role, version) via cron giornaliero one-way. Editing su Notion verrà sovrascritto
+            al prossimo sync — per modificare un agente, usa <code class="inline">/agent update</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============================ STACK ============================ -->
     <section id="stack">
       <span class="eyebrow">LO STACK</span>
@@ -949,23 +1093,23 @@
           </tr>
           <tr>
             <td><strong>Plugin</strong></td>
-            <td class="mono">djungle-agent-os.plugin</td>
-            <td>Le skill <code class="inline">/invoke</code>, <code class="inline">/wb</code>, <code class="inline">/sota</code>, <code class="inline">/handoff</code> dentro Claude.</td>
+            <td class="mono">djungle-agent-os.plugin v3.5</td>
+            <td>12 skill: <code class="inline">/invoke</code>, <code class="inline">/wb</code>, <code class="inline">/sota</code>, <code class="inline">/handoff</code>, <code class="inline">/initiative</code>, <code class="inline">/probe</code>, <code class="inline">/scribe-status</code>, <code class="inline">/agent</code>, <code class="inline">/marketplace</code>, <code class="inline">/sota-update</code>, <code class="inline">/sync_mirror</code>.</td>
           </tr>
           <tr>
             <td><strong>MCP server</strong></td>
-            <td class="mono">Vercel · Edge Functions</td>
-            <td>Il ponte fra Claude e i tuoi dati. OAuth-based, multi-tenant.</td>
+            <td class="mono">Vercel · 46 tool MCP</td>
+            <td>Il ponte fra Claude e i tuoi dati. OAuth 2.1 magic-link, multi-tenant, RLS.</td>
           </tr>
           <tr>
             <td><strong>Knowledge layer</strong></td>
-            <td class="mono">Supabase · Postgres</td>
-            <td>Iniziative, SOTA, sessioni, handoff, memory log — tutto strutturato e queryable.</td>
+            <td class="mono">Supabase · Postgres canonical</td>
+            <td>Agenti, moduli, capabilities, knowledge, iniziative, SOTA, sessioni, handoff, memory log, scribe buffer — tutto strutturato e queryable.</td>
           </tr>
           <tr>
-            <td><strong>Identità agenti</strong></td>
-            <td class="mono">Notion</td>
-            <td>System prompt, capabilities, knowledge base — editabili come pagine Notion.</td>
+            <td><strong>Notion mirror</strong></td>
+            <td class="mono">Notion · read-only sync 1×/giorno</td>
+            <td>Archivio leggibile per visual review. Cron one-way Supabase→Notion. Editing canonico via <code class="inline">/agent update</code>.</td>
           </tr>
           <tr>
             <td><strong>Modello AI</strong></td>
@@ -1143,7 +1287,7 @@
           <p><a href="https://djungle.io">djungle.io</a></p>
         </div>
       </div>
-      <p class="legal">© 2026 Djungle Holding · Manuale del prodotto v3.2 · Aggiornato 7 maggio 2026</p>
+      <p class="legal">© 2026 Djungle Holding · Manuale del prodotto v3.5 · Aggiornato 10 maggio 2026</p>
     </footer>
 
   </main>
